@@ -385,14 +385,14 @@
           Sign-CAM exploits the ±1 symmetric property unique to BNN weights and activations
           to determine each feature map's positive or negative contribution to the final prediction —
           entirely without gradient computation.
-          It achieves Score-CAM-level explanation quality without any additional forward passes —
-          whereas Score-CAM requires one full forward pass per feature map (320 passes for ResNet18 BNN),
-          Sign-CAM computes each score in just 3 FLOPs.
+          It achieves Score-CAM-level explanation quality at approximately 2 orders of magnitude
+          lower computational cost — Sign-CAM requires no additional forward passes,
+          while Score-CAM requires one full forward pass per feature map.
         </p>
         <div class="paper-highlights">
           <span class="highlight-pill">No gradient required</span>
           <span class="highlight-pill">Outperforms Grad-CAM / Grad-CAM++</span>
-          <span class="highlight-pill">No additional forward passes (Score-CAM requires 320×)</span>
+          <span class="highlight-pill">~2 orders of magnitude less computation than Score-CAM</span>
         </div>
         <div class="paper-tech">
           <strong>Models:</strong> Binary ResNet · Binary VGG &nbsp;|&nbsp;
