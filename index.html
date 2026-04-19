@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuei-Hung Tseng (Aesop) — ML Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    a { color: #1a73e8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Color Tokens ── */
+    :root {
+      --blue:    #1a73e8;
+      --blue-lt: #e8f0fe;
+      --teal:    #00897b;
+      --teal-lt: #e0f2f1;
+      --gray1:   #f5f5f5;
+      --gray2:   #e0e0e0;
+      --gray3:   #757575;
+      --text:    #1a1a1a;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 72px 0; }
+    section:nth-child(even) { background: #fff; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gray2);
+      padding: 14px 0;
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+    .nav-name { font-weight: 700; font-size: 15px; color: var(--text); }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--gray3); transition: color .2s; }
+    .nav-links a:hover { color: var(--blue); text-decoration: none; }
+
+    /* ── Hero ── */
+    #hero {
+      background: #fff;
+      padding: 80px 0 72px;
+    }
+    .hero-inner {
+      display: flex;
+      gap: 52px;
+      align-items: flex-start;
+    }
+    .avatar {
+      flex-shrink: 0;
+      width: 148px; height: 148px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(26,115,232,.25);
+      border: 3px solid var(--blue-lt);
+    }
+    .avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-text h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 36px; font-weight: 700;
+      line-height: 1.2; margin-bottom: 6px;
+    }
+    .hero-text h1 span { color: var(--blue); }
+    .hero-subtitle {
+      font-size: 17px; color: var(--gray3);
+      margin-bottom: 18px;
+    }
+    .hero-bio {
+      font-size: 15.5px; color: #333;
+      max-width: 560px; line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500;
+    }
+    .badge-blue { background: var(--blue-lt); color: #1558b0; }
+    .badge-teal { background: var(--teal-lt); color: #00695c; }
+    .badge-gray { background: var(--gray1); color: #555; }
+    .contact-row { display: flex; flex-wrap: wrap; gap: 18px; }
+    .contact-row a {
+      font-size: 14px; font-weight: 500; color: var(--gray3);
+      display: flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .contact-row a:hover { color: var(--blue); text-decoration: none; }
+
+    /* ── Section Headings ── */
+    .sec-title {
+      font-family: 'Merriweather', serif;
+      font-size: 24px; font-weight: 700;
+      margin-bottom: 36px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--blue);
+      display: inline-block;
+    }
+
+    /* ── Research Cards ── */
+    .research-grid { display: flex; flex-direction: column; gap: 28px; }
+    .paper-card {
+      background: #fff;
+      border: 1px solid var(--gray2);
+      border-radius: 10px;
+      padding: 28px 32px;
+      box-shadow: var(--card-shadow);
+      border-left: 4px solid var(--blue);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .paper-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.12); transform: translateY(-2px); }
+    .paper-card.teal { border-left-color: var(--teal); }
+    .paper-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+    .paper-title {
+      font-size: 17px; font-weight: 700; color: var(--text); line-height: 1.4;
+    }
+    .status-badge {
+      flex-shrink: 0;
+      padding: 4px 12px; border-radius: 12px;
+      font-size: 12px; font-weight: 600;
+      white-space: nowrap;
+    }
+    .status-review { background: #fff8e1; color: #e65100; }
+    .status-accepted { background: #e8f5e9; color: #2e7d32; }
+    .paper-venue { font-size: 13.5px; font-weight: 600; color: var(--blue); margin-bottom: 12px; }
+    .paper-card.teal .paper-venue { color: var(--teal); }
+    .paper-desc { font-size: 14.5px; color: #444; line-height: 1.7; margin-bottom: 16px; }
+    .paper-highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .highlight-pill {
+      background: var(--gray1); color: #555;
+      padding: 3px 12px; border-radius: 12px; font-size: 12.5px;
+    }
+    .paper-tech { font-size: 13px; color: var(--gray3); }
+
+    /* ── Research Areas Summary ── */
+    .area-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 36px; }
+    .area-card {
+      padding: 20px 22px; border-radius: 8px;
+      background: var(--gray1);
+      border-top: 3px solid var(--blue);
+    }
+    .area-card.teal { border-top-color: var(--teal); }
+    .area-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .area-card p { font-size: 13.5px; color: #555; line-height: 1.6; }
+
+    /* ── Experience Timeline ── */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 6px; top: 4px; bottom: 4px;
+      width: 2px; background: var(--gray2);
+    }
+    .tl-item { position: relative; margin-bottom: 32px; }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -24px; top: 5px;
+      width: 12px; height: 12px;
+      border-radius: 50%; background: var(--blue);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--blue);
+    }
+    .tl-item.teal::before { background: var(--teal); box-shadow: 0 0 0 2px var(--teal); }
+    .tl-date { font-size: 12.5px; font-weight: 600; color: var(--gray3); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+    .tl-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .tl-org { font-size: 14px; color: var(--blue); font-weight: 500; margin-bottom: 6px; }
+    .tl-item.teal .tl-org { color: var(--teal); }
+    .tl-desc { font-size: 14px; color: #555; line-height: 1.65; }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tl-tag { background: var(--gray1); color: #555; padding: 2px 10px; border-radius: 10px; font-size: 12px; }
+
+    /* ── Skills ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .skill-group { background: #fff; border: 1px solid var(--gray2); border-radius: 8px; padding: 20px 22px; }
+    .skill-group h4 { font-size: 13px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .skill-group ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .skill-group ul li { font-size: 14px; color: #444; display: flex; align-items: center; gap: 8px; }
+    .skill-group ul li::before { content: '▸'; color: var(--blue); font-size: 11px; }
+
+    /* ── Publications ── */
+    .pub-list { display: flex; flex-direction: column; gap: 20px; }
+    .pub-item { padding: 18px 22px; border-radius: 8px; background: #fff; border: 1px solid var(--gray2); }
+    .pub-item .pub-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .pub-item .pub-authors { font-size: 13.5px; color: var(--gray3); margin-bottom: 4px; }
+    .pub-item .pub-venue { font-size: 13.5px; font-weight: 600; }
+    .pub-item .pub-venue.accepted { color: var(--teal); }
+    .pub-item .pub-venue.review { color: #e65100; }
+
+    /* ── Collaborations ── */
+    .collab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .collab-card {
+      text-align: center; padding: 28px 18px;
+      border: 1px solid var(--gray2); border-radius: 10px;
+      background: #fff;
+      box-shadow: var(--card-shadow);
+    }
+    .collab-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px; font-size: 22px; color: #fff;
+    }
+    .collab-icon.blue { background: linear-gradient(135deg,#1a73e8,#1558b0); }
+    .collab-icon.teal { background: linear-gradient(135deg,#00897b,#00695c); }
+    .collab-icon.purple { background: linear-gradient(135deg,#7b1fa2,#4a148c); }
+    .collab-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .collab-role { font-size: 13px; color: var(--gray3); }
+
+    /* ── Footer ── */
+    footer {
+      background: #1a1a1a; color: #aaa;
+      padding: 36px 0; text-align: center;
+      font-size: 13.5px;
+    }
+    footer a { color: #aaa; }
+    footer a:hover { color: #fff; }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .hero-inner { flex-direction: column; align-items: center; text-align: center; }
+      .badge-row, .contact-row { justify-content: center; }
+      .area-grid, .skills-grid, .collab-grid { grid-template-columns: 1fr; }
+      .paper-card-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav>
+  <div class="container">
+    <span class="nav-name">Kuei-Hung Tseng</span>
+    <div class="nav-links">
+      <a href="#research">Research</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="avatar"><img src="avatar.jpg" alt="Kuei-Hung Tseng" /></div>
+      <div class="hero-text">
+        <h1>Kuei-Hung Tseng <span>(Aesop)</span></h1>
+        <p class="hero-subtitle">M.S. in Computer Science &nbsp;·&nbsp; National Taiwan University</p>
+        <p class="hero-bio">
+          I am a machine learning researcher specializing in
+          <strong>neural network pruning and model compression</strong>.
+          My work focuses on making large deep learning models smaller and faster
+          without sacrificing accuracy — from Vision Transformers to Large Language Models.
+          I also work on <strong>interpretability for Binarized Neural Networks</strong>
+          in collaboration with Polytechnique Montréal.
+        </p>
+        <div class="badge-row">
+          <span class="badge badge-blue"><i class="fas fa-graduation-cap"></i> NTU NEWS Lab</span>
+          <span class="badge badge-teal"><i class="fas fa-flask"></i> Polytechnique Montréal</span>
+          <span class="badge badge-gray"><i class="fas fa-microchip"></i> MediaTek Research Collaboration</span>
+        </div>
+        <div class="contact-row">
+          <a href="mailto:abc091044466@gmail.com"><i class="fas fa-envelope"></i> abc091044466@gmail.com</a>
+          <a href="https://github.com/Aesop-programmer" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <span style="font-size:14px; color:#aaa; display:flex; align-items:center; gap:6px;">
+            <i class="fas fa-map-marker-alt"></i> Taiwan
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ RESEARCH ══════ -->
+<section id="research">
+  <div class="container">
+    <h2 class="sec-title">Research</h2>
+
+    <div class="area-grid">
+      <div class="area-card">
+        <h4><i class="fas fa-cut"></i>&nbsp; Structural Pruning &amp; Model Compression</h4>
+        <p>Criterion-agnostic weight redistribution for structured pruning of ViT, CNN, and LLM architectures.</p>
+      </div>
+      <div class="area-card teal">
+        <h4><i class="fas fa-eye"></i>&nbsp; BNN Interpretability</h4>
+        <p>Gradient-free explainability methods for Binarized Neural Networks using ±1 weight/activation properties.</p>
+      </div>
+    </div>
+
+    <div class="research-grid">
+
+      <!-- WeightCompression -->
+      <div class="paper-card">
+        <div class="paper-card-header">
+          <div class="paper-title">Structural Pruning without Losing Model Weights</div>
+          <span class="status-badge status-review">Under Review</span>
+        </div>
+        <div class="paper-venue"><i class="fas fa-conference"></i> ICML 2026 (Submitted January 2026)</div>
+        <p class="paper-desc">
+          We propose <strong>WeightCompression</strong>, a post-pruning weight redistribution algorithm that is
+          <em>criterion-agnostic</em> — it works on top of any existing pruning criterion (L1, L2, Taylor, OBD, FPGM, Random).
+          After structured pruning removes columns from a weight matrix, WeightCompression solves a linear regression
+          (<em>Recombine</em>) to learn how pruned weights can be approximated by remaining ones, then folds them back
+          (<em>Redistribute</em>): <code>W'' = W_R + W_P · A</code>.
+          Grounded in <strong>Neural Tangent Kernel (NTK)</strong> theory, this initialization substantially reduces
+          the fine-tuning cost compared to naive pruning.
+        </p>
+        <div class="paper-highlights">
+          <span class="highlight-pill">One-shot ≈ Iterative pruning</span>
+          <span class="highlight-pill">3.27×–12.58× speedup</span>
+          <span class="highlight-pill">+2–13% accuracy on ViT-Base/CIFAR-100</span>
+          <span class="highlight-pill">Recovers divergent YOLOv8 pruning</span>
+        </div>
+        <div class="paper-tech">
+          <strong>Models:</strong> ViT-Base / Large / Huge · YOLOv8 · LLaMA &nbsp;|&nbsp;
+          <strong>Datasets:</strong> CIFAR-100 · iNaturalist-2019 · ImageNet &nbsp;|&nbsp;
+          <strong>Baselines:</strong> SlimGPT, OBC
+        </div>
+      </div>
+
+      <!-- Sign_CAM -->
+      <div class="paper-card teal">
+        <div class="paper-card-header">
+          <div class="paper-title">Sign-CAM: Leveraging Binary Weights and Activations for Efficient Interpretability in Binarized Neural Networks</div>
+          <span class="status-badge status-accepted">Accepted ✓</span>
+        </div>
+        <div class="paper-venue"><i class="fas fa-check-circle"></i> XAI-2026 (4th World Conference on eXplainable AI · Fortaleza, Brazil · July 2026)</div>
+        <p class="paper-desc">
+          Grad-CAM and related gradient-based methods fail on BNNs due to the Straight-Through Estimator (STE)
+          producing unreliable gradients. We propose <strong>Sign-CAM</strong>, which exploits the ±1 symmetric
+          property of BNN weights and activations to determine each feature map's positive or negative contribution
+          to predictions — without any gradient computation.
+          Sign-CAM achieves Score-CAM-level quality at a fraction of the computational cost.
+        </p>
+        <div class="paper-highlights">
+          <span class="highlight-pill">No gradients needed</span>
+          <span class="highlight-pill">Outperforms Grad-CAM/Grad-CAM++</span>
+          <span class="highlight-pill">Score-CAM-level quality, much cheaper</span>
+        </div>
+        <div class="paper-tech">
+          <strong>Models:</strong> Binary ResNet · Binary VGG &nbsp;|&nbsp;
+          <strong>Dataset:</strong> CIFAR-10 &nbsp;|&nbsp;
+          <strong>Metrics:</strong> Avg Drop · Confidence Increase · Insertion · Deletion &nbsp;|&nbsp;
+          <strong>Baselines:</strong> Grad-CAM, Grad-CAM++, Score-CAM, RISE, BDD4BNN
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ EXPERIENCE ══════ -->
+<section id="experience">
+  <div class="container">
+    <h2 class="sec-title">Experience</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-date">2026 – Present</div>
+        <div class="tl-title">Research Collaboration</div>
+        <div class="tl-org">MediaTek · Taiwan</div>
+        <div class="tl-desc">
+          Ongoing collaboration on neural network pruning for Compute-In-Memory (CIM) hardware.
+          Applying WeightCompression methodology to meet the stringent accuracy and latency requirements
+          of on-chip inference on edge devices.
+        </div>
+        <div class="tl-tags">
+          <span class="tl-tag">Model Compression</span>
+          <span class="tl-tag">CIM Hardware</span>
+          <span class="tl-tag">Edge AI</span>
+        </div>
+      </div>
+
+      <div class="tl-item teal">
+        <div class="tl-date">Summer 2025 · Montréal, Canada</div>
+        <div class="tl-title">Research Intern — SRIP 2025</div>
+        <div class="tl-org">Polytechnique Montréal · Prof. Jean Pierre David</div>
+        <div class="tl-desc">
+          Summer Research Internship Program. Developed Sign-CAM, a novel explainability method for
+          Binarized Neural Networks, as the primary researcher. Attended courses on BNN optimization and
+          Multi-Robot Systems &amp; Swarm Robotics. Paper accepted to XAI-2026.
+        </div>
+        <div class="tl-tags">
+          <span class="tl-tag">BNN Interpretability</span>
+          <span class="tl-tag">XAI</span>
+          <span class="tl-tag">Sign-CAM</span>
+          <span class="tl-tag">PyTorch</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2023 – 2025</div>
+        <div class="tl-title">M.S. Researcher</div>
+        <div class="tl-org">NTU NEWS Lab · Prof. Chi-Sheng Shih · National Taiwan University</div>
+        <div class="tl-desc">
+          Thesis: <em>"Compressing Weight Before Pruning for Faster Fine-tuning and Improved Accuracy."</em>
+          Developed the WeightCompression algorithm for structured pruning across ViT, CNN, and LLM architectures.
+          Submitted to NeurIPS 2025 (positive reviews) and subsequently extended with LLaMA and YOLOv8
+          experiments for ICML 2026.
+        </div>
+        <div class="tl-tags">
+          <span class="tl-tag">Neural Pruning</span>
+          <span class="tl-tag">ViT</span>
+          <span class="tl-tag">LLaMA</span>
+          <span class="tl-tag">YOLOv8</span>
+          <span class="tl-tag">NTK Theory</span>
+        </div>
+      </div>
+
+      <div class="tl-item teal">
+        <div class="tl-date">2023</div>
+        <div class="tl-title">Research Collaboration — Autonomous Driving</div>
+        <div class="tl-org">Automotive Research &amp; Testing Center (ARTC) · Taiwan</div>
+        <div class="tl-desc">
+          Collaborated on LiDAR sensor integration for autonomous driving perception systems.
+          Focused on data fusion and real-time object detection pipelines.
+        </div>
+        <div class="tl-tags">
+          <span class="tl-tag">LiDAR</span>
+          <span class="tl-tag">Sensor Fusion</span>
+          <span class="tl-tag">Object Detection</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PUBLICATIONS ══════ -->
+<section id="publications">
+  <div class="container">
+    <h2 class="sec-title">Publications</h2>
+    <div class="pub-list">
+
+      <div class="pub-item">
+        <div class="pub-title">Sign-CAM: Leveraging Binary Weights and Activations for Efficient Interpretability in Binarized Neural Networks</div>
+        <div class="pub-authors">Kuei-Hung Tseng, Jean Pierre David</div>
+        <div class="pub-venue accepted"><i class="fas fa-check-circle"></i> XAI-2026 — 4th World Conference on eXplainable Artificial Intelligence · Fortaleza, Brazil · July 2026</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Structural Pruning without Losing Model Weights</div>
+        <div class="pub-authors">Kuei-Hung Tseng et al.</div>
+        <div class="pub-venue review"><i class="fas fa-hourglass-half"></i> ICML 2026 — Under Review (Submitted January 2026)</div>
+      </div>
+
+    </div>
+
+    <p style="margin-top:20px; font-size:13.5px; color:var(--gray3);">
+      <i class="fas fa-info-circle"></i>&nbsp;
+      Earlier version of WeightCompression submitted to NeurIPS 2025 received positive reviewer feedback
+      (R1: "extensive experiments"; R3: "zero-shot pruning results are impressive") and was expanded
+      with LLaMA &amp; YOLOv8 results for ICML 2026.
+    </p>
+  </div>
+</section>
+
+<!-- ══════ COLLABORATIONS ══════ -->
+<section id="collaborations">
+  <div class="container">
+    <h2 class="sec-title">Affiliations &amp; Collaborations</h2>
+    <div class="collab-grid">
+
+      <div class="collab-card">
+        <div class="collab-icon blue"><i class="fas fa-university"></i></div>
+        <div class="collab-name">NTU NEWS Lab</div>
+        <div class="collab-role">M.S. Researcher<br>Advisor: Prof. Chi-Sheng Shih<br>2023 – 2025</div>
+      </div>
+
+      <div class="collab-card">
+        <div class="collab-icon teal"><i class="fas fa-snowflake"></i></div>
+        <div class="collab-name">Polytechnique Montréal</div>
+        <div class="collab-role">Research Collaboration<br>Advisor: Prof. Jean Pierre David<br>2025 – Present</div>
+      </div>
+
+      <div class="collab-card">
+        <div class="collab-icon purple"><i class="fas fa-microchip"></i></div>
+        <div class="collab-name">MediaTek</div>
+        <div class="collab-role">Research Collaboration<br>Neural Pruning for CIM<br>2026 – Present</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SKILLS ══════ -->
+<section id="skills">
+  <div class="container">
+    <h2 class="sec-title">Technical Skills</h2>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <h4>Deep Learning</h4>
+        <ul>
+          <li>PyTorch / PyTorch Lightning</li>
+          <li>Vision Transformer (ViT)</li>
+          <li>LLaMA (decoder-only LLMs)</li>
+          <li>YOLOv8 (PyTorch, without Ultralytics)</li>
+          <li>Binarized Neural Networks</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h4>Research Methods</h4>
+        <ul>
+          <li>Structural Pruning</li>
+          <li>Model Compression</li>
+          <li>Neural Tangent Kernel theory</li>
+          <li>Explainability (CAM methods)</li>
+          <li>Quantization (SmoothQuant, OBC)</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h4>Tools &amp; Infrastructure</h4>
+        <ul>
+          <li>Python · LaTeX</li>
+          <li>TensorBoard</li>
+          <li>FAISS (vector search / RAG)</li>
+          <li>scikit-learn</li>
+          <li>Google Slides · Git</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section id="contact" style="padding-bottom:80px;">
+  <div class="container">
+    <h2 class="sec-title">Contact</h2>
+    <p style="font-size:15.5px; color:#444; max-width:520px; margin-bottom:28px;">
+      I am open to research collaborations and discussions around model compression,
+      efficient deep learning, and AI interpretability. Feel free to reach out.
+    </p>
+    <div style="display:flex; flex-wrap:wrap; gap:16px;">
+      <a href="mailto:abc091044466@gmail.com" style="
+        display:inline-flex; align-items:center; gap:10px;
+        padding:12px 24px; background:var(--blue); color:#fff;
+        border-radius:6px; font-weight:600; font-size:15px;
+        transition:background .2s; text-decoration:none;">
+        <i class="fas fa-envelope"></i> abc091044466@gmail.com
+      </a>
+      <a href="https://github.com/Aesop-programmer" target="_blank" style="
+        display:inline-flex; align-items:center; gap:10px;
+        padding:12px 24px; background:#1a1a1a; color:#fff;
+        border-radius:6px; font-weight:600; font-size:15px;
+        text-decoration:none;">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="container">
+    <p>© 2026 Kuei-Hung Tseng (Aesop) &nbsp;·&nbsp; National Taiwan University, Department of Computer Science</p>
+    <p style="margin-top:6px; font-size:12.5px;">
+      Built with HTML &amp; CSS &nbsp;·&nbsp; Last updated April 2026
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
